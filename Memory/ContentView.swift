@@ -1,6 +1,4 @@
-//
-//  ContentView.swift
-//  Memory
+////  Memory
 //
 //  Created by Joseph DeWeese on 2/19/22.
 //
@@ -9,18 +7,22 @@ import SwiftUI
 
 struct ContentView: View {
     //Properties...
-    @State var emojis = ["〽️","👊🏽","😂","🤷","💃🏾","🧏🏽‍♀️","👑","💍"]
-    @State var emojiCount = 4
+    @State var emojis = ["〽️","👊🏽","😂","🤷","💃🏾","🧏🏽‍♀️","👑","💍","🪖","🎓","🧳", "🙅🏻", "🧟‍♀️","🧞‍♂️","🧜🏽‍♀️"]
+    @State var emojiCount = 15
+    
     
     
     var body: some View {
         VStack {
-            HStack {
-                ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
-                    CardView(content: emoji)
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 70))]){
+                    ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
+                        CardView(content: emoji).aspectRatio(2/3, contentMode: .fit)
+                    }
                 }
+                .foregroundColor(.red)
             }
-            //HStack
+            .padding()
             HStack {
                 remove
                 Spacer()
@@ -28,7 +30,7 @@ struct ContentView: View {
             }
             .padding()
             .font(.largeTitle)
-            Spacer()
+            
         }
         .padding(.horizontal)
         .foregroundColor(.blue)
@@ -68,7 +70,7 @@ struct CardView: View {
             if isFaceUp {
                 shape.fill()
                 shape.foregroundColor(.white)
-                shape.stroke(lineWidth: 5).fill(.orange)
+                shape.strokeBorder(lineWidth:3)
                 Text(content)
                     .font(.largeTitle)
             } else {
@@ -86,6 +88,6 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .preferredColorScheme(.dark)
-            .previewInterfaceOrientation(.portrait)
+            .previewInterfaceOrientation(.portraitUpsideDown)
     }
 }
